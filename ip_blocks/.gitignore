@@ -1,0 +1,5 @@
+# this file should ignore the contents of each folder, EXCEPT the xci files
+clk_wiz_0/*
+!clk_wiz_0/*.xci
+xadc_wiz_0/*
+!xadc_wiz_0/*.xci
