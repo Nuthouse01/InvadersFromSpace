@@ -1,4 +1,4 @@
-project*/*
+
 mipsfpga-plus
 
 # emacs autosave files
@@ -8,3 +8,4 @@ mipsfpga-plus
 
 # Vivado directory
 .Xil
+project*/*
