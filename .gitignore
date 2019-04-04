@@ -1,0 +1,10 @@
+project*/*
+mipsfpga-plus
+
+# emacs autosave files
+.#*
+# stupid vivado log files
+*.str
+
+# Vivado directory
+.Xil
