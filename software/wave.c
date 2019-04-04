@@ -105,9 +105,6 @@ int run_one_wave(int wavenum, int numplayers) {
 	// wave init
 	print("wave start\n");
 
-	write_audio_musicstate(AUDIO_PLAYMUSIC);
-	write_audio_currwave(wavenum);
-
 	enemy00_x = ENEMY_BASE_X;
 	enemy00_y = ENEMY_BASE_Y;
 
@@ -531,7 +528,8 @@ int check_pausequit() {
 
 	// if the center button is released...
 	if (releases & (BUTTON_UP_A | BUTTON_UP_B)) {
-		write_audio_musicstate(AUDIO_STOPMUSIC);
+		// pause all music/sfx
+		write_audio_status(AUDCHAN1|AUDCHAN2|AUDCHAN3|AUDCHAN4,0,0);
 		print("begin_pause at time=%li\n", gametime);
 		// init the "waiting for input" animation
 		write_leds(0xFF00);
@@ -558,11 +556,10 @@ int check_pausequit() {
 			done = releases & (BUTTON_UP_A | BUTTON_UP_B);
 		}
 		// game has been unpaused!
-		write_audio_musicstate(AUDIO_PLAYMUSIC);
+		// resume all music/sfx
+		write_audio_status(0,AUDCHAN1|AUDCHAN2|AUDCHAN3|AUDCHAN4,0);
 		// to prevent the game from suddenly skipping forward over tons of gameticks, set MFP_TIMER0 to 0
 		// so its like we never even paused!
-		// ALTERNATE: grab a copy of MFP_TIMER0 when first pausing, write that value back when unpausing
-		// but, we don't need that degree of precision
 		write_timer0(0);
 		print("\nend_pause at time=%li\n",gametime);
 
@@ -905,6 +902,8 @@ void shoot_enemy() {
 		col_prev = col;
 	}
 
+	// TODO sound: enemy shoot sound effect?
+
 	write_leds(a); // DEBUG: "firing" for test purposes
 }
 
@@ -929,8 +928,8 @@ void shoot_players(int numplayers) {
 				// generate the bullet
 				create_bullet(BULLET_PLAYER, px, py);
 
-				// TODO sound: player fire
-				write_audio_soundfx(AUDIO_PLAYER_SHOOT);
+				// sound: player fire
+				write_audio_soundfx(AUDCHAN4, AUDIO_PLAYER_SHOOT);
 
 				// engage the shooting cooldown
 				player_shoot_cooldown[z] = 1;
@@ -976,8 +975,8 @@ void hit_players(int whichplayer) {
 	// disable shooting (cant shoot while im dead)(need to go thru 3 frames of animation before you can shoot again)
 	player_shoot_cooldown[whichplayer] = 1;
 	player_shoot_cooldown_target[whichplayer] = new_target(PLAYER_EXPLODE_SPEED * 3);
-	// TODO sound: player explode
-	write_audio_soundfx(AUDIO_PLAYER_EXPLODE);
+	// sound: player explode
+	write_audio_soundfx(AUDCHAN4, AUDIO_PLAYER_EXPLODE);
 }
 
 
@@ -995,8 +994,8 @@ void hit_enemy(int xidx, int yidx) {
 	// redisplay score
 	calc_and_draw_score(current_game_score);
 
-	// TODO sound: enemy explode
-	write_audio_soundfx(AUDIO_ENEMY_EXPLODE);
+	// sound: enemy explode
+	write_audio_soundfx(AUDCHAN3, AUDIO_ENEMY_EXPLODE);
 }
 
 

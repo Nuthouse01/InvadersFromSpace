@@ -468,25 +468,43 @@ int read_xadc_b() {
 }
 
 
-void write_audio_soundfx(long input) {
+void write_audio_soundfx(int channels, int input) {
 #ifdef SDL2
-	printf("write_audio_soundfx: %li\n", input);
+	printf("write_audio_soundfx: c=%i, i=%li\n", channels, input);
 #else
-	MFP_AUDIO_SOUNDFX = input;
+	long temp = channels << AUD_CHANOFFSET;
+	temp |= input;
+	MFP_AUDIO_SOUNDFX = temp;
 #endif
 }
-void write_audio_musicstate(long input) {
+// NOTE: unused & unimplemented
+void write_audio_tonegen(int channels, long input) {
 #ifdef SDL2
-	printf("write_audio_musicstate: %li\n", input);
+	printf("write_audio_tonegen: c=%i, i=%li\n", channels, input);
 #else
-	MFP_AUDIO_MUSICSTATE = input;
+	long temp = channels << AUD_CHANOFFSET;
+	temp |= input;
+	MFP_AUDIO_TONEGEN = temp;
 #endif
 }
-void write_audio_currwave(long input) {
+void write_audio_status(int pause, int resume, int stop) {
 #ifdef SDL2
-	printf("write_audio_currwave: %li\n", input);
+	printf("write_audio_status: p=%i,r=%i,s=%i\n", pause,resume,stop);
+	// TODO
 #else
-	MFP_AUDIO_CURRWAVE = input;
+	long temp = pause << AUD_PAUSEOFFSET;
+	temp |= resume << AUD_RESUMEOFFSET;
+	temp |= stop << AUD_STOPOFFSET;
+	MFP_AUDIO_STATUS = temp;
+#endif
+}
+// NOTE: unused
+long read_audio_status() {
+#ifdef SDL2
+	printf("read_audio_status\n");
+	// TODO
+#else
+	return MFP_AUDIO_STATUS;
 #endif
 }
 

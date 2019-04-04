@@ -123,30 +123,37 @@ long play_one_game(int numplayers) {
 		draw();
 
 #ifndef FAST
-		print("play sound: wave-start");
-		// TODO sound: play wave-start fanfare
-		write_audio_soundfx(AUDIO_WAVESTART);
+		// pause the music for the wave-start effect
+		write_audio_status(AUDCHAN1|AUDCHAN2,0,0);
+		print("play sound: wave-start\n");
+		// sound: play wave-start fanfare
+		write_audio_soundfx(AUDCHAN3|AUDCHAN4, AUDIO_WAVESTART);
 		// wait until the fanfare is done playing
 		write_timer0(0);
 		while(read_timer0() < WAVESTART_SOUND_LENGTH) {}
+		// resume the music after the wave-start effect
+		write_audio_status(0,AUDCHAN1|AUDCHAN2,0);
 #endif
 
 		// run the wave & capture the return value
 		beat_it = run_one_wave(wavenum, numplayers);
 		// if beat_it is 1, we beat the wave, so keep going - otherwise quit
 		/////////////////
-		write_audio_musicstate(AUDIO_STOPMUSIC);
 
 		}
 	// if you hit here, game over!
 
 #ifndef FAST
-	print("play sound: game-over");
-	// TODO sound: play game over sound & freeze?
-	write_audio_soundfx(AUDIO_GAMEOVER);
+	// pause the music for the game-over effect
+	write_audio_status(AUDCHAN1|AUDCHAN2,0,0);
+	print("play sound: game-over\n");
+	// sound: play game over sound & freeze?
+	write_audio_soundfx(AUDCHAN3|AUDCHAN4, AUDIO_GAMEOVER);
 	// wait until sound is done playing
 	write_timer0(0);
 	while(read_timer0() < GAMEOVER_SOUND_LENGTH) {}
+	// resume the music after the game-over effect
+	write_audio_status(0,AUDCHAN1|AUDCHAN2,0);
 #endif
 
 	// "cleanup" before returning to main menu!

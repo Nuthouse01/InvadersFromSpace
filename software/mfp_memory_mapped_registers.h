@@ -38,8 +38,8 @@
 #define MFP_XADC_RESULTB_ADDR	0xBF400004
 // audio, starting at 0xBF300000
 #define MFP_AUDIO_SOUNDFX_ADDR		0xBF300000
-#define MFP_AUDIO_MUSICSTATE_ADDR	0xBF300004
-#define MFP_AUDIO_CURRWAVE_ADDR		0xBF300008
+#define MFP_AUDIO_TONEGEN_ADDR		0xBF300004
+#define MFP_AUDIO_STATUS_ADDR		0xBF300008
 
 // sprite palette address
 #define MFP_SPRITE_PALETTE_BASE_ADDR 0xBF200000
@@ -83,8 +83,8 @@
 #define MFP_XADC_RESULTB		(* (volatile unsigned *) MFP_XADC_RESULTB_ADDR ) //read
 
 #define MFP_AUDIO_SOUNDFX		(* (volatile unsigned *) MFP_AUDIO_SOUNDFX_ADDR ) //write
-#define MFP_AUDIO_MUSICSTATE	(* (volatile unsigned *) MFP_AUDIO_MUSICSTATE_ADDR ) //write
-#define MFP_AUDIO_CURRWAVE		(* (volatile unsigned *) MFP_AUDIO_CURRWAVE_ADDR ) //write
+#define MFP_AUDIO_TONEGEN		(* (volatile unsigned *) MFP_AUDIO_TONEGEN_ADDR ) //write
+#define MFP_AUDIO_STATUS		(* (volatile unsigned *) MFP_AUDIO_STATUS_ADDR ) //read/write
 
 // button masks
 // shift 01234 are "real buttons" on the FPGA
@@ -111,9 +111,22 @@
 #define AUDIO_ENEMY_EXPLODE		(1<<3)
 #define AUDIO_WAVESTART			(1<<4)
 #define AUDIO_GAMEOVER			(1<<5)
-#define AUDIO_PLAYMUSIC			1
-#define AUDIO_STOPMUSIC			0
+#define AUDIO_MUSIC_LOW			14
+#define AUDIO_MUSIC_HIGH		19
 
+#define AUDCHAN1				(1<<0)
+#define AUDCHAN2				(1<<1)
+#define AUDCHAN3				(1<<2)
+#define AUDCHAN4				(1<<3)
+#define AUD_PAUSEOFFSET			8
+#define AUD_RESUMEOFFSET		4
+#define AUD_STOPOFFSET			0
+#define AUD_CHANOFFSET			28
+// music-low on chan1
+// music-high on chan2
+// enemy explode on chan3
+// playershoot/playerexplode on chan4
+// wave start/end on chan3+4
 
 // This define is used in boot.S code
 // how? where? i can't find it

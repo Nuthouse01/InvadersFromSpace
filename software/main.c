@@ -119,8 +119,13 @@ int main () {
 	write_7seg_dec(0x00);
 	write_7seg_high(0x01020304);
 	write_7seg_low( 0x05060708);
-	// no music on main menu
-	write_audio_musicstate(AUDIO_STOPMUSIC);
+
+	// do i want music or not? it will be started from only 1 place (here) and forever looping
+	// first, ensure its all stopped just in case
+	write_audio_status(0,0,AUDCHAN1|AUDCHAN2|AUDCHAN3|AUDCHAN4);
+	// start both parts of the music here
+	write_audio_soundfx(AUDCHAN1, AUDIO_MUSIC_LOW);
+	write_audio_soundfx(AUDCHAN2, AUDIO_MUSIC_HIGH);
 
 	print("done with bootup init\n");
 
@@ -132,6 +137,7 @@ int main () {
 
 		// TODO stretch: load the menu options (one ship and two ships)
 		// TODO stretch: load the cursor (explosion)
+
 
 		long butts = 0;
 #ifdef FAST

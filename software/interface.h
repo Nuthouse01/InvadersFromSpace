@@ -39,9 +39,10 @@ void write_7seg_high(long);
 void write_7seg_low(long);
 int  read_xadc_a();
 int  read_xadc_b();
-void write_audio_soundfx(long);
-void write_audio_musicstate(long);
-void write_audio_currwave(long);
+void write_audio_soundfx(int, int);
+void write_audio_tonegen(int, long);
+void write_audio_status(int,int,int);
+long read_audio_status();
 
 void write_sprite_xpos(int spriteidx, int xpos);
 void write_sprite_ypos(int spriteidx, int ypos);
