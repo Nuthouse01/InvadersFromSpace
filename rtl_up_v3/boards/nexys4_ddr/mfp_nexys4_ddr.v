@@ -57,8 +57,7 @@ module mfp_nexys4_ddr(
 
     wire [23:0] xadc_results;
 
-    clk_wiz_0 clk_wiz_0(.clk_in_100mhz(CLK100MHZ), .clk_out_25(clk25));
-    clk_wiz_1 clk_wiz_1(.clk_in_100mhz(CLK100MHZ), .clk_out_25(clk5));
+    clk_wiz_0 clk_wiz_0(.clk_in_100mhz(CLK100MHZ), .clk_out_25mhz(clk25), .clk_out_5mhz(clk5));
 
     IBUF IBUF1(.O(tck_in),.I(JB[4]));
     BUFG BUFG1(.O(tck), .I(tck_in));

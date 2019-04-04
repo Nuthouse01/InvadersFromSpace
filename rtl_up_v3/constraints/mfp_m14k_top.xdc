@@ -5,5 +5,5 @@
 
 #create_clock -period 20.000 [get_ports SI_ClkIn]
 #set_input_jitter [get_clocks -of_objects [get_ports SI_ClkIn]] 150.541ps
-create_clock -period 39.725 [get_ports SI_ClkIn]
+create_clock -period 35.000 [get_ports SI_ClkIn]
 set_input_jitter [get_clocks -of_objects [get_ports SI_ClkIn]] 319.783ps
