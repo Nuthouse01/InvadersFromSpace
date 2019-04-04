@@ -1,0 +1,23 @@
+
+to recreate project from script:
+1: launch "Vivado 2018.2 Tcl Shell", which is a separate program from the real Vivado
+ALTERNATE: open a project with real Vivado and go to the bottom of the screen, one of the tabs there should be for "Tcl Shell". Note that I have no idea what will happen if you try to recreate a project while that project is already open
+2: use "pwd" to find where you are
+3: use "cd" to browse to be inside "proj1-jamiew_brianh" folder
+4: run "set ::origin_dir_loc ."
+5: (optional) use "set ::user_project_name whatever" to change the name of the project that will be created
+6: run "source recreate_project.tcl"
+7: open the proj1-jamiew_brianh/project_1/project_1.xpr file by Windows Explorer double-click or Vivado "Open Project" and browse to it
+8: bada bing bada boom, gonna have to resynthesize everything tho
+
+
+
+to create script from project:
+(NOTE: every time a new file is added/moved/renamed, must first add it as a "source" to the Vivado project, then re-make the script)
+(NOTE: when creating a new IP block, be sure to create it somewhere other than in the default location, which is buried deep inside the vivado project folder... once you create it, add the .xci file to Github, but none of the other files. and then re-make the script)
+1: open the project in question
+2: (optional) inside the Tcl shell, browse to the directory where you keep everything
+	for me, D:/brian/Documents/ECE\ 540\ -\ FPGA\ Design/
+3: run "write_project_tcl -force -paths_relative_to . recreate_project.tcl"
+4: if you skipped step 2, find where it was created (it should say somewhere in all the text it printed) and copy it to the github repository
+
