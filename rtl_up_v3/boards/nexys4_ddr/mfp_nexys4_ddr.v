@@ -43,30 +43,8 @@ module mfp_nexys4_ddr(
 
     // Press btnCpuReset to reset the processor.
 
-    /*
-    DONE:
-    clock wizard
-    made MIPSfpga cpu core an out-of-context run (not sure if that will be preserved by the "recreate_project.tcl" script)
-    remove rojobot signals passed up thru hierarchy
-    remove rojobot modules: ahb, synchro
-    update AHB tree/signals so we can read ahb things outside the top level
-    ahb XADC module
-    ahb sprite table storage module
-    vga module
-    sprite controller
-    expand debounce module to accept additional paddle buttons
-    expand signals passed thru hierarchy so addl buttons are still held by the GPIO ahb module
-    placeholder ahb sound module
-    sprite RAM 
-    */
 
-    /*
-    TODO:
-    sound ROM (or maybe some other method of storage?)
-    change pin constraints to let out the sound pins
-    */
-
-    wire clk25;
+    wire clk25, clk5;
     wire tck_in, tck;
     wire [ 4:0] pushbutton_debounced;
     wire        resetbutton_debounced;
@@ -80,6 +58,7 @@ module mfp_nexys4_ddr(
     wire [23:0] xadc_results;
 
     clk_wiz_0 clk_wiz_0(.clk_in_100mhz(CLK100MHZ), .clk_out_25(clk25));
+    clk_wiz_1 clk_wiz_1(.clk_in_100mhz(CLK100MHZ), .clk_out_25(clk5));
 
     IBUF IBUF1(.O(tck_in),.I(JB[4]));
     BUFG BUFG1(.O(tck), .I(tck_in));
@@ -119,7 +98,7 @@ module mfp_nexys4_ddr(
                     .OUT_7SD_CATHODE({DP, CA, CB, CC, CD, CE, CF, CG}),
                     .IN_analog_result ( xadc_results ), // {resultB, resultA} concatenated into one signal
                     .OUT_audio_pwm_and_enable({AUD_PWM, AUD_SD}), // [0]=AUD_PWM, [1]=AUD_SD
-                    .IN_audio_clock(CLK100MHZ),
+                    .IN_audio_clock(clk5),
                     // sprite ram access via sprite manager
                     .SPRITE_ADDR(sprite_addr),
                     .SPRITE_DATA(sprite_data)

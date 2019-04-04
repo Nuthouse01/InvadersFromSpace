@@ -14,6 +14,12 @@
 `define MFP_N_7SD_DIG         8   // 7SD number of digits (anodes)
 `define MFP_N_7SD_SEG         8   // 7SD number of segments per digit (cathodes)
 
+`define BUTT_UP_IDX			4
+`define BUTT_DOWN_IDX		3
+`define BUTT_LEFT_IDX		2
+`define BUTT_CENTER_IDX		1
+`define BUTT_RIGHT_IDX		0
+
 
 //---------------------------------------------------
 // Memory-mapped I/O addresses for each register
@@ -47,8 +53,8 @@
 `define H_XADC_RESULTB_ADDR   (32'h1f400004)
 // audio
 `define H_SOUND_SOUNDFX_ADDR (32'h1f300000)
-`define H_SOUND_MUSICSTATE_ADDR (32'h1f300004)
-`define H_SOUND_CURRWAVE_ADDR (32'h1f300008)
+`define H_SOUND_TONEGEN_ADDR (32'h1f300004)
+`define H_SOUND_STATUS_ADDR (32'h1f300008)
 
 `define H_SPRITE_GFX_ADDR (32'h1f200000)
 `define H_SPRITE_TBL_ADDR (32'h1f100000)
@@ -85,10 +91,10 @@
 // write 1<<3 = enemy death sound
 // write 1<<4 = wavestart (maybe)
 // write 1<<5 = gameover (maybe)
-`define H_SOUND_MUSICSTATE_IONUM  (8'hFF & (`H_SOUND_MUSICSTATE_ADDR>>2)) // 1
+`define H_SOUND_TONEGEN_IONUM  (8'hFF & (`H_SOUND_TONEGEN_ADDR>>2)) // 1
 // 1 = be playing music
 // 0 = pause the music
-`define H_SOUND_CURRWAVE_IONUM  (8'hFF & (`H_SOUND_CURRWAVE_ADDR>>2)) // 2
+`define H_SOUND_STATUS_IONUM  (8'hFF & (`H_SOUND_STATUS_ADDR>>2)) // 2
 // wave number
 
 //---------------------------------------------------
