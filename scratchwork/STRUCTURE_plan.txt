@@ -1,0 +1,60 @@
+
+/////////////////////////////////////////////
+LIST OF DESIRED SPRITES, each 16x16 i guess
+4: AlienA, AlienB, mirror/jiggle versions of both
+2: explosionA, explosionB (smaller version)
+10: numbers 0-9
+2: player ship p1/p2 (note: uses same explosion as aliens)
+2: bunker solid, bunker half-broken
+BACKGROUNDS
+game labels: "lives" "score" "wave"
+menu options: 1-player, 2-player, high score (maybe)
+
+
+/////////////////////////////////////////////
+main{
+
+load sprite table
+set sprites to be disabled or off screen
+more init?
+
+basic:
+	set LEDs to be animating somehow (still showing black screen)
+	wait for any button press
+	wait for all buttons to be released
+	seed the random LFSR
+advanced:
+	load menu screen (as a background) and cursor
+	continually reading paddle to move cursor
+	options are start 1-player, start 2-player, view high scores (yes high score will be reset on power down, whatever)
+	run whichever option is under cursor when button released
+
+begin "game" (separate file/function)(takes 1-player or 2-player as argument)
+	do game-init stuff like reset score, lives, more?
+	begin "wave"
+		do wave-init stuff like reset enemy positions & speeds, bunkers, more?
+		(beginning of the scheduler loop)
+		(player/enemies are now visible but frozen, scheduler targets not set)
+		play brief opening fanfare, wait until its done, then set the scheduler targets
+		run the "normal wave logic" (run until wave complete or game over)
+			...
+			...
+			...
+			...
+	if wave complete, begin next "wave", don't reset score/lives
+	on losing, exit function & return score, add to "high score list" (if we have that feature)
+reset icons to be off screen or whatever
+go back to "main menu" or black-screen-waiting-for-input
+	
+
+
+}
+
+////////////////////////////////////////////////
+"main menu"/boot/init stuff should be its own file, probably actual main
+game/wave/collision/fire bullet all together, probably?
+
+
+
+
+

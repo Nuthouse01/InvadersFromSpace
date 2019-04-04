@@ -1,0 +1,100 @@
+
+
+1s/200 = 0.005s = (1/50MHz) * 3 * ?
+? = 0.005 * 50M / 3
+? = 83,333
+200Hz = count to 83,333
+
+!!!!!!!! because we have so many timed events, EVERYTHING is timed, we should have a robust system for timed events
+!!!!!!!! basically building our own RTOS
+
+// example:
+// set an event that will activate after [duration] * 0.005s
+// duration must be less than [timer ceil] - [window]
+// also wrap at 6000
+// do this wherever needed, independently for each event
+target = gametime + [duration]
+if(target >= 6000)
+	target -= 6000
+
+
+// example: trigger an event:
+// trigger an event if the timer has counted up past the target time...
+// ...but it also must not be greater by more than [window]=1000 (1/6 total timer range)
+// this is to make it not trigger immediately if gametime is near [ceil] and [duration] makes target wrap to below
+if( (gametime > target) && (gametime < (target + 1000)) )
+	// disable target:
+	set target to 0xFFFF (65535)(outside of comparable range, effectively disabled)
+	// OR, if periodic, move target/set new target:
+	target = gametime + [duration]
+	if(target >= 6000)
+		target -= 6000
+	** do the event **
+
+	
+	
+/////////////////////////////////
+// main-loop plan:
+while(1) {
+
+	// gametime represents 200ths of a second, smallest interval of time anything happens at
+	// all durations are multiples of this
+	// wrap at [timer ceil]=6000 (30 seconds)
+	// do this EVERY MAIN LOOP iteration
+	set now = read timer0
+	if(now > 83333)
+		write timer0 = now - 83333
+		gametime += 1
+		if(gametime >= 6000)
+			gametime -= 6000
+
+	// conditional timing events
+	// IF IT IS TIME TO DO X, then run the block
+	// not mutually exclusive, any number (or none) may run each main-loop pass
+	move player(very fast but doesn't need to be each main-loop)
+		(note: if using NES or board buttons, its not really collision, just bounds-checking)
+			(in this case, the input-checking frequency controls the max horizontal speed)
+		(note: if using paddles, no bounds-checking is needed, just set position = value because the paddle is not infinite spin)
+		*run ebeam collision (ebeams vs player)
+		
+	move bullets (player bullets up, enemy bullets down)
+		*run ebeam collision (ebeams vs player)
+		*run pbeam collision (pbeams vs enemies)
+		*run bunker collision (pbeams vs bunker, ebeams vs bunker) (perhaps an optional mode of the ebeam/pbeam functions?)
+		for each bullet
+			if bullet collides iwth player
+				player dies
+			if bullet collided with enemy
+				enemy dies
+			etc
+			
+	move enemies
+		(note: frequency will change as more enemies die)
+		each time this block runs it moves the enemies 1 pixel left/right/down
+		it also changes the displayed icon for each enemy to the next in the animation sequence (every tenth? invocation)
+		*run pbullet collision (pbeams vs enemies)
+		
+	animations!!! oneshot "asynchronous/nonperiodic" events
+		how long do enemy explosions linger (0.4s)
+			tracked independently for each enemy
+		how long does player explosion linger (0.8s)(same as respawn delay)
+		??? "bunker" hit animations? (individual units briefly change color before vanishing? represent bullet impact?)
+		minimum time between player shots!! also "asynchronous/nonperiodic"
+			tracked independently for each player
+			when a player shoots, block all further fire-button inputs for (0.3s)
+
+	time until next enemy shot (sorta periodic? sorta nonperiodic?)
+		when its time to fire, choose how many (1 or 2) and which enemy will do the firing
+		only front enemy in a given column can fire (non-front enemies cannot fire)
+		after each shot, generate a random number w/ some ceil and floor... that is delay until this triggers next
+		ceil gets lower as wave progresses, therefore fires more frequently
+
+	? time between special enemy appearances? (long delay, like 20 seconds or something)
+	? at wave-complete, time to wait while fanfare plays before next wave begins?
+	? at game start(bootup, play again after gameover, play game from menu screen)
+
+}
+
+
+
+

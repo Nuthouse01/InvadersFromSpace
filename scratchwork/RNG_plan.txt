@@ -1,0 +1,16 @@
+
+
+random number algorithm: 
+linear feedback shift register!
+needs to be seeded via human iniput somehow
+
+
+random number seed: from timer!
+on game bootup, start from menu (stretch goal) or from "Ready?" screen
+player must press something (fire button? center board button?) to begin the game
+read timer1 at that instant, get its value, use as random seed!
+human input (delay) becomes random seed
+
+
+
+

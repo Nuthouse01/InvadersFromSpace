@@ -1,0 +1,33 @@
+
+each of the following things needs a module written for it. "modules" here are _conceptual_ blocks - they don't need their own subroutines or files, but we will probably be using multiple files anyway.
+
+poll input from user
+player bullet generation
+enemy AI step (compute movement, enemy bullet generation)
+
+movement step:
+    player
+    bullets
+    enemies
+
+collision checks:
+    player/bounds (player is trying to move off the screen)
+    player/enemy bullet
+    enemy/player bullet
+    bullet/block
+
+bullet effects:
+    destroy (set destroyed flag) player if hit
+        logic to handle game over
+    destroy (set destroyed flag) enemy if hit
+        logic to increment score
+    damage block if hit
+        check for destruction, remove block entirely if necessary
+
+graphics effects:
+    draw player
+        explosion animation check?
+    draw enemies
+        explosion animation check?
+    draw blocks
+    draw score
