@@ -1,0 +1,68 @@
+; space_theme_high.coe
+;
+; Music notes for Space Theme by Jamie Williams (2019)
+; 	This file contains only the higher part of the song
+; 
+; Stores musical tones (Note/Octive pairs) 
+; 	Each tone represents a 16th of a second of sound
+; 
+; For Note/Octave pairs: 
+;		- Note is first hex digit 0-B (0 to 11) 
+;			in order = [A, A#, B, C, C#, D, D#, E, F, F#, G, G#]
+;		- Octave is second hex digit 0-8
+;
+; All rests/silent times are set to FF
+;
+;	Depth = 9 bits (512 note values)
+;	Width = 8  bits (4 bits for note, 4 bits for octave)
+;
+memory_initialization_radix=16;
+memory_initialization_vector=
+ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, 
+ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, 
+ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, 
+ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, 
+ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, 
+ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, 
+ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, 
+ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, 
+ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, 
+ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, 
+ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, 
+ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, 
+ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, 
+ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, 
+ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, 
+ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, ff, 
+ff, ff, ff, ff, ff, ff, ff, ff, 
+04, 04, 04, 04, 04, 04, 04, 04, 
+55, 55, 55, 55, 55, 55, 55, 55, 
+04, 04, 04, 04, 04, 04, 04, 04, 
+55, 55, 55, 55, 55, 55, 55, 55, 
+35, 35, 35, 35, 35, 35, 35, 35, 
+04, 04, 04, 04, 04, 04, 04, 04, 
+35, 35, 35, 35, 35, 35, 35, 35, 
+ff, ff, ff, ff, ff, ff, ff, ff, 
+04, 04, 04, 04, 04, 04, 04, 04, 
+55, 55, 55, 55, 55, 55, 55, 55, 
+04, 04, 04, 04, 04, 04, 04, 04, 
+55, 55, 55, 55, 55, 55, 55, 55, 
+35, 35, 35, 35, 35, 35, 35, 35, 
+04, 04, 04, 04, 04, 04, 04, 04, 
+55, 55, 55, 55, 55, 55, 55, 55, 
+ff, ff, ff, ff, ff, ff, ff, ff, 
+04, 04, 04, 04, 04, 04, 04, 04, 
+55, 55, 55, 55, 55, 55, 55, 55, 
+04, 04, 04, 04, 04, 04, 04, 04, 
+55, 55, 55, 55, 55, 55, 55, 55, 
+35, 35, 35, 35, 35, 35, 35, 35, 
+04, 04, 04, 04, 04, 04, 04, 04, 
+35, 35, 35, 35, 35, 35, 35, 35, 
+ff, ff, ff, ff, ff, ff, ff, ff, 
+04, 04, 04, 04, 04, 04, 04, 04, 
+55, 55, 55, 55, 55, 55, 55, 55, 
+04, 04, 04, 04, 04, 04, 04, 04, 
+55, 55, 55, 55, 55, 55, 55, 55, 
+04, 04, 04, 04, 04, 04, 04, 04, 
+35, 35, 35, 35, 35, 35, 35, 35, 
+55, 55, 55, 55, 55, 55, 55, 55;

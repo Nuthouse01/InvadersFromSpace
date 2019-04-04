@@ -1,0 +1,37 @@
+; tone_table.coe
+;
+; Stores musical tones (Note/Octive pairs) or frequencies (Hz)
+;	as "limit values" which are clock_freq/tone_freq
+; Clock is assumed to be 100MHz
+; 
+; ADDRESSING:
+; For Note/Octave pairs: 
+;		- Note is first hex digit 0-B (0 to 11) 
+;			in order = [A, A#, B, C, C#, D, D#, E, F, F#, G, G#]
+;		- Octave is second hex digit 0-8
+;
+; All tone values with first hex digit of address C-F are other tones
+;			(not associated with a music note)
+; All unused tone values are set to 0
+;
+;	Depth = 8 bits (256 spots)
+;	Width = 32 bits
+;
+memory_initialization_radix=16;
+memory_initialization_vector=
+377c8c, 1bbe46, ddf23, 6ef91, 377c9, 1bbe4, ddf2, 6ef9, 377d, 00, 00, 00, 00, 00, 00, 00, 
+345d1d, 1a2fb5, d17da, 68bed, 36b87, 1a2fa, d17d, 68bf, 345f, 00, 00, 00, 00, 00, 00, 00, 
+316ddf, 18b6ef, c5bb9, 62ddd, 316ee, 18b76, c5bb, 62de, 316f, 00, 00, 00, 00, 00, 00, 00, 
+5d5370, 2ea9b8, 1753f2, baa34, 5d50b, 2ea89, 17545, baa2, 5d51, 00, 00, 00, 00, 00, 00, 00, 
+581968, 2c0973, 1604b9, b0291, 58148, 2c0a1, 16051, b029, 5814, 00, 00, 00, 00, 00, 00, 00, 
+532777, 2990d5, 14c86b, a6464, 53232, 29916, 14c8b, a646, 5323, 00, 00, 00, 00, 00, 00, 00, 
+4e738c, 273c5b, 139e2e, 9cf17, 4e781, 273c3, 139e1, 9cf0, 4e78, 00, 00, 00, 00, 00, 00, 00, 
+4a1261, 250930, 128405, 94227, 4a10a, 25088, 12843, 9422, 4a11, 00, 00, 00, 00, 00, 00, 00, 
+45e5f4, 22f507, 117a00, 8bd21, 45e88, 22f44, 117a3, 8bd1, 45e9, 00, 00, 00, 00, 00, 00, 00, 
+41ff8c, 20fdf2, 107ef9, 83f7d, 41fc6, 20fe1, 107f0, 83f8, 41fc, 00, 00, 00, 00, 00, 00, 00, 
+3e47e1, 1f23f0, f91f8, 7c8fc, 3e47e, 1f241, f920, 7c90, 3e48, 00, 00, 00, 00, 00, 00, 00, 
+3ac730, 1d650b, eb229, 7592c, 3ac96, 1d649, eb25, 7592, 3ac9, 00, 00, 00, 00, 00, 00, 00, 
+17d784, 196e6b, 1b3f72, 1d5805, 1fca05, 22add7, 2625a0, 2a62b2, 2faf08, 367ee5, 00, 00, 00, 00, 00, 00, 
+cb735, d9fb9, eac02, fe503, 1156ec, 1312d0, 153159, 17d784, 1b3f72, 1fca05, 00, 00, 00, 00, 00, 00, 
+8235, 8910, 90ad, 9930, a2c3, ad9c, ba03, c852, d904, ecbe, 00, 00, 00, 00, 00, 00, 
+00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00;
