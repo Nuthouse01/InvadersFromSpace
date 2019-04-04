@@ -18,7 +18,7 @@ import math
 ################################################################################################################################
 # user-changeable parameters
 
-OUT_FILENAME = "_testfile4.coe"
+OUT_FILENAME = "soundmem_v1.coe"
 
 USE_HEX = 1		# bin=0, hex=1
 VERBOSE = 1		# print extra info to terminal or not

@@ -106,9 +106,9 @@
 #define BUTTON_SHOOT_B			(1<<5)
 
 // codes to send to the audio module to play/control sound effects
-#define AUDIO_PLAYER_EXPLODE	(1<<1)
-#define AUDIO_PLAYER_SHOOT		(1<<2)
-#define AUDIO_ENEMY_EXPLODE		(1<<3)
+#define AUDIO_PLAYER_EXPLODE	0
+#define AUDIO_PLAYER_SHOOT		6
+#define AUDIO_ENEMY_EXPLODE		3
 #define AUDIO_WAVESTART			(1<<4)
 #define AUDIO_GAMEOVER			(1<<5)
 #define AUDIO_MUSIC_LOW			14
