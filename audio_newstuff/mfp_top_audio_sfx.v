@@ -68,7 +68,7 @@ module mfp_top_audio_sfx(
 	  .clk_out_25mhz(clk25),     // output clk_out_25mhz
 	  .clk_out_5mhz(clk5),     // output clk_out_5mhz
 	 // Clock in ports
-	  .clk_in1(CLK100MHZ));      // input clk_in1
+	  .clk_in_100mhz(CLK100MHZ));      // input clk_in1
 
 
 	// add 1 to number of PB cuz the resetbutton isn't counted in that number but is still debounced
@@ -114,62 +114,50 @@ module mfp_top_audio_sfx(
 		HSEL = | butt_posedge;
 		HADDR = 0;
 		HWDATA = 0;
-		
-		// testfile4: ID=5, DEPTH=2
-		// testfile4: 0=player explode, 3=enemy explode, 6=player shoot, 9=loop1(A4), 10=loop2(D4), 11=looping scale, 14=song_low, 19=song_high
-		
-		
-		// up=explode
-		// right=shoot
-		// left=tone D
-		// down=tone A
-		// center=stop
-		
-//		if(butt_posedge[`BUTT_UP_IDX]) begin
-//			// UP: sfx1 (id 0-1)
-//			HADDR = `H_SOUND_SOUNDFX_IONUM;
-//			HWDATA = {switches_debounced[3:0], 28'h0};
-//		end else if(butt_posedge[`BUTT_LEFT_IDX]) begin
-//			// LEFT: looping test 2
-//			HADDR = `H_SOUND_SOUNDFX_IONUM;
-//			HWDATA = {switches_debounced[3:0], 28'hA};
-//		end else if(butt_posedge[`BUTT_RIGHT_IDX]) begin
-//			// RIGHT: sfx3 (id 4-5)
-//			HADDR = `H_SOUND_SOUNDFX_IONUM;
-//			HWDATA = {switches_debounced[3:0], 28'h6};
-//		end else if(butt_posedge[`BUTT_DOWN_IDX]) begin
-//			// DOWN: looping test
-//			HADDR = `H_SOUND_SOUNDFX_IONUM;
-//			HWDATA = {switches_debounced[3:0], 28'h9};
-//		end else if(butt_posedge[`BUTT_CENTER_IDX]) begin
-//			// CENTER: stop everything
-//			HADDR = `H_SOUND_STATUS_IONUM;
-//			HWDATA = 32'h000f;
-//		end
-		
-		// mode 2: scale, pause & resume
+				
+		// new plan: select ID with switches, choose channel with buttons
+		// up=1, left=2, right=3, down=4, center=stop
 		if(butt_posedge[`BUTT_UP_IDX]) begin
 			// UP: begin the scale
 			HADDR = `H_SOUND_SOUNDFX_IONUM;
-			HWDATA = {switches_debounced[3:0], 28'hB};
+			HWDATA = switches_debounced[`SFXIDBITS-1:0] | (4'h1 << 28);
 		end else if(butt_posedge[`BUTT_LEFT_IDX]) begin
 			// LEFT: song low
 			HADDR = `H_SOUND_SOUNDFX_IONUM;
-			HWDATA = {switches_debounced[3:0], 28'hE};
+			HWDATA = switches_debounced[`SFXIDBITS-1:0] | (4'h2 << 28);
 		end else if(butt_posedge[`BUTT_RIGHT_IDX]) begin
 			// RIGHT: song high
 			HADDR = `H_SOUND_SOUNDFX_IONUM;
-			HWDATA = {switches_debounced[3:0], 28'h13};
+			HWDATA = switches_debounced[`SFXIDBITS-1:0] | (4'h4 << 28);
 		end else if(butt_posedge[`BUTT_DOWN_IDX]) begin
 			// DOWN: looping test
 			HADDR = `H_SOUND_SOUNDFX_IONUM;
-			HWDATA = {switches_debounced[3:0], 28'h9};
+			HWDATA = switches_debounced[`SFXIDBITS-1:0] | (4'h8 << 28);
 		end else if(butt_posedge[`BUTT_CENTER_IDX]) begin
 			// CENTER: stop everything
 			HADDR = `H_SOUND_STATUS_IONUM;
 			HWDATA = 32'h000f;
 		end
 	end
+	
+	
+	// attach the 7seg driver
+	wire [15:0] input_low;
+	assign input_low = switches_debounced;
+	
+	wire [31:0] reg_7sd_high_digits, reg_7sd_low_digits;
+	assign reg_7sd_high_digits = 0;
+	assign reg_7sd_low_digits =  {4'b0, input_low[15:12], 4'b0, input_low[11:8], 4'b0, input_low[7:4], 4'b0, input_low[3:0]};
+	mfp_ahb_7sd_driver sevseg_driver(
+			.clk(clk25),
+			.resetn(resetbutton_debounced),
+			.EN(8'hFF),
+			.DP(8'h00),
+			.DIGITS({reg_7sd_high_digits, reg_7sd_low_digits}),
+			.DISP_EN_OUT(OUT_7SD_ANODE),
+			.DISP_SEG_OUT(OUT_7SD_CATHODE)
+			);
+
 	
 	mfp_ahb_audio audio (
 			.HCLK(clk25),
