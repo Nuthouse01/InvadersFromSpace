@@ -316,10 +316,10 @@ linelist.append(stopcode())
 linelist = endpadsfx(linelist)
 
 # F3 E3 D3
-# duration = 2.25s
+# duration = 2.2s
 # position 25-26
 print("sfx7 begin: game_over")
-linelist.append(coeline(REST,0.25)) #(rest)
+linelist.append(coeline(REST,0.2)) #(rest)
 linelist.append(coeline(n[2][F],0.25))
 linelist.append(coeline(n[2][E],0.25))
 linelist.append(coeline(n[2][D],1.0))

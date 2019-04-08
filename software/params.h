@@ -54,9 +54,11 @@
 // NOTE: maximum allowable [duration] = [GAMETIME_MAX] - [GAMETIME_WINDOW] - 1
 #define TARGET_OFF			0xFFFF
 
-// how long to pause to wait for these sounds to play
-#define WAVESTART_SOUND_LENGTH		TIMERCNT_1_SEC
-#define GAMEOVER_SOUND_LENGTH		TIMERCNT_1_SEC
+// how long to pause to wait while these sounds play
+// wavestart: 2.4s
+#define WAVESTART_SOUND_LENGTH		((TIMERCNT_1_SEC * 24) / 10)
+// gameover: 2.2s
+#define GAMEOVER_SOUND_LENGTH		((TIMERCNT_1_SEC * 22) / 10)
 
 // NOTE: soundfx lengths! (not needed for code)
 // player explode = 0.6s

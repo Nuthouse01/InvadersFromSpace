@@ -107,12 +107,12 @@
 
 // codes to send to the audio module to play/control sound effects
 #define AUDIO_PLAYER_EXPLODE	0
-#define AUDIO_PLAYER_SHOOT		6
 #define AUDIO_ENEMY_EXPLODE		3
-#define AUDIO_WAVESTART			(1<<4)
-#define AUDIO_GAMEOVER			(1<<5)
-#define AUDIO_MUSIC_LOW			14
-#define AUDIO_MUSIC_HIGH		19
+#define AUDIO_PLAYER_SHOOT		6
+#define AUDIO_MUSIC_LOW			9
+#define AUDIO_MUSIC_HIGH		14
+#define AUDIO_WAVESTART			23
+#define AUDIO_GAMEOVER			25
 
 #define AUDCHAN1				(1<<0)
 #define AUDCHAN2				(1<<1)
