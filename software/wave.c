@@ -913,7 +913,7 @@ void shoot_players(int numplayers) {
 	// check if the player is trying to shoot!
 	int butts = (int)read_butts(); // read butts & cast
 	for (int z = 0; z < numplayers; z++) {
-		if (butts & (z?BUTTON_SHOOT_B:BUTTON_SHOOT_A)) {
+		if (butts & (z?BUTTON_SHOOT_B|BUTTON_CENTER_B:BUTTON_SHOOT_A|BUTTON_CENTER_A)) {
 			// check if the player is able to shoot
 			// this handles death-lockout, no need to verify that they are alive
 			if (player_shoot_cooldown[z] == 0) {
