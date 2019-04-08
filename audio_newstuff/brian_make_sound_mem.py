@@ -18,7 +18,7 @@ import math
 ################################################################################################################################
 # user-changeable parameters
 
-OUT_FILENAME = "soundmem_v1.coe"
+OUT_FILENAME = "soundmem_v2.coe"
 
 USE_HEX = 1		# bin=0, hex=1
 VERBOSE = 1		# print extra info to terminal or not
@@ -232,7 +232,7 @@ def writetofile(linelist):
 
 linelist = []
 
-
+# position 0-2
 print("sfx1 begin: player explode")
 for f in sound_fx1:
 	linelist.append(coeline(f, fx1_dur))
@@ -240,7 +240,7 @@ for f in sound_fx1:
 linelist.append(stopcode())
 linelist = endpadsfx(linelist)
 
-
+# position 3-5
 print("sfx2 begin: enemy explode")
 for f in sound_fx2:
 	linelist.append(coeline(f, fx2_dur))
@@ -248,35 +248,12 @@ for f in sound_fx2:
 linelist.append(stopcode())
 linelist = endpadsfx(linelist)
 
-
+# position 6-8
 print("sfx3 begin: player shoot")
 for f in sound_fx3:
 	linelist.append(coeline(f, fx3_dur))
 	pass
 linelist.append(stopcode())
-linelist = endpadsfx(linelist)
-
-
-print("sfx4 begin: looptest1")
-linelist.append(coeline(n[4][A],1))
-linelist.append(jumpcode(9))
-linelist = endpadsfx(linelist)
-
-print("sfx5 begin: looptest2")
-linelist.append(coeline(n[4][D],1))
-linelist.append(jumpcode(10))
-linelist = endpadsfx(linelist)
-
-print("sfx6 begin: looping scale")
-linelist.append(coeline(n[5][C],0.5))
-linelist.append(coeline(n[5][D],0.5))
-linelist.append(coeline(n[5][E],0.5))
-linelist.append(coeline(n[5][F],0.5))
-linelist.append(coeline(n[5][G],0.5))
-linelist.append(coeline(n[6][A],0.5))
-linelist.append(coeline(n[6][B],0.5))
-linelist.append(coeline(n[6][C],0.5))
-linelist.append(jumpcode(11))
 linelist = endpadsfx(linelist)
 
 
@@ -309,20 +286,72 @@ song_high = zip(notes2, duration2)
 # print(len(duration2))
 # print(len(notes2))
 
-print("sfx7 begin: song_low")
+# position 9-14
+print("sfx4 begin: song_low")
 for note,dur in zip(notes1, duration1):
+	linelist.append(coeline(note,dur/4))
+linelist.append(jumpcode(9))
+linelist = endpadsfx(linelist)
+
+# position 14-22
+print("sfx5 begin: song_high")
+for note,dur in zip(notes2, duration2):
 	linelist.append(coeline(note,dur/4))
 linelist.append(jumpcode(14))
 linelist = endpadsfx(linelist)
 
-print("sfx8 begin: song_high")
-for note,dur in zip(notes2, duration2):
-	linelist.append(coeline(note,dur/4))
-linelist.append(jumpcode(19))
+
+# Charge: G C E G2 E G2 = 1 4 6 8 4 8?
+# wavestart: (rest) 8 3 5 888 (rest)
+# duration = 0.6x4 = 2.4s
+# position 23-24
+print("sfx6 begin: wave_start")
+linelist.append(coeline(REST,0.6)) #(rest)
+linelist.append(coeline(n[6][C],0.2)) #8
+linelist.append(coeline(n[5][E],0.2)) #3
+linelist.append(coeline(n[5][G],0.2)) #5
+linelist.append(coeline(n[6][C],0.6)) #8
+linelist.append(coeline(REST,0.6)) #(rest)
+linelist.append(stopcode())
+linelist = endpadsfx(linelist)
+
+# F3 E3 D3
+# duration = 2.25s
+# position 25-26
+print("sfx7 begin: game_over")
+linelist.append(coeline(REST,0.25)) #(rest)
+linelist.append(coeline(n[2][F],0.25))
+linelist.append(coeline(n[2][E],0.25))
+linelist.append(coeline(n[2][D],1.0))
+linelist.append(coeline(REST,0.5)) #(rest)
+linelist.append(stopcode())
 linelist = endpadsfx(linelist)
 
 
 
+"""
+print("sfx8 begin: looptest1")
+linelist.append(coeline(n[4][A],1))
+linelist.append(jumpcode(9))
+linelist = endpadsfx(linelist)
+
+print("sfx9 begin: looptest2")
+linelist.append(coeline(n[4][D],1))
+linelist.append(jumpcode(10))
+linelist = endpadsfx(linelist)
+
+print("sfx10 begin: looping scale")
+linelist.append(coeline(n[5][C],0.5)) #1
+linelist.append(coeline(n[5][D],0.5)) #2
+linelist.append(coeline(n[5][E],0.5)) #3
+linelist.append(coeline(n[5][F],0.5)) #4
+linelist.append(coeline(n[5][G],0.5)) #5
+linelist.append(coeline(n[6][A],0.5)) #6
+linelist.append(coeline(n[6][B],0.5)) #7
+linelist.append(coeline(n[6][C],0.5)) #8
+linelist.append(jumpcode(11))
+linelist = endpadsfx(linelist)
+"""
 
 
 
