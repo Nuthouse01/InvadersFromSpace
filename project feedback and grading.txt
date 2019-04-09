@@ -1,18 +1,49 @@
 [TO BE COMPLETED BY T/A OR INSTRUCTOR]
 
-Project Name:
-Team members:
-Score: xx/100
+Project Name: Invaders from Space
+Team members: Brian Henson, Jamie Williams, Bradon Kanyid, Grant Vesely
+*** WALL OF FAME WINNER ***
+Grade:  101/100 
 =============
 
-Degree of difficulty (up to 5 pts):
 
-Progress Report and Final Project presentations  (15 pts):
+Description:
+---------------- 
+The goal of this project is to implement a MIPSfpga-based Space Invaders game…or as Jamie said, implement a similar game only better.  Their committed goal is to create a base level design.  Stretch goals include adding sound, supporting multiple players, and adding game modes.  An Atari Paddle controller is the input.  Output is to the VGA monitor. 
 
-Demo (50 pts):
+Degree of difficulty (5 pts): 4
+---------------------------------------
+There are a lot of components to this project – interfacing to the game controller hardware, changing the VGA subsystem to support generic sprites, and writing a simple scheduler.  The game logic will be implemented in software which will add additional complexity.  
 
-Design Report (15 pts):
+Progress Report (10 pts): 8
+-------------------------------------
+The presentation was well-organized with an appropriate amount of detail.  All major components of the project were discussed, including the work that Bradon (excused from the presentation) was doing.  Implementation-wise, the team is implementing a fully generic VGA sprite controller and a simple scheduler to control the sequencing of the game playing code (written in C for MIPSfpga).  The team is feeling pretty good that they are on track and I have no reason to disagree.  The major downside to their presentation was that they jumped around a lot from slide to slide, from speaker to speaker.  Several teams did the same but for their project presentation I found it distracting because it made the team look disorganized…which is not likely the case.
 
-Code Quality (15 pts):
+Demo (50 pts): 48
+------------------------
+The presentation was good considering the time constraints I put on the project. It’s odd but I believe the time limitations kept the team more on track than their progress report where there was a lot of slide and speaker slipping.  The key components of the design were discussed (controller input, sprite system, and task scheduler).  It was interesting that the team first emulated the design in software before the hardware was available.  Most of the implementation was done in software so having the emulator I’m sure made it easier to bring the software up while the hardware was being finalized.   The Game Play logic was written in C which kind of goes counter to the learning objectives for the course, but I’ll accept it with a deduction in the Degree of Difficulty score since the other arcade games were of similar difficulty and the game play application was written in Assembly.  Had to lower resolution from 1024 x 768 to 640 x 480 (small deduction)
 
-Extra Credit (up to 8 pts):
+DEMO – The demo was a success…and an impressive accomplishment.  The original arcade game (as far as I can remember) looked and operated the same way.  The invaders moved down the screen relentlessly, blasting away at the two players.  The two players (both controlled w/ Atari Paddle controllers (Potentiometer + button) blasted away and the invaders and when there was a hit the invader exploded.  Score keeping was on screen and updated real-time as the game proceeded.  Showed a video of the PWM-based sound generation but the team ran out of time before they integrate audio into the game. 
+
+Design Report (20 pts): 19
+-----------------------------------
+The design report did a good job of summarizing the key (e.g. complex) parts of the project…and there were a number of them.  The primary reliance of textual descriptions to explain the functionality instead of using flowcharts, code snippets, etc. limited the amount of insight I got on the details of your implementation (I hope your source code is organized well and commented heavily), but given everything that you implemented I understand the approach you used.  To provide sufficient detail would have meant greatly increasing the size of the report.  I enjoyed reading, and found interesting, the rationale that went into your design choices throughout the document, and as a design report this is very good.  Not as good as a Theory of Operation for the reasons above.  Your sections on near misses and hindsight were particularly interesting.
+
+This was a very complex project for the time given. Your emphasis on creating more of a game playing engine (sprite generator, PWM music, configuration in software) undoubtedly added to the complexity of the project but you should be proud of, and feel good about, all that you accomplished – a very playable, entertaining arcade game.   
+
+Quality of code (15 pts): 14
+------------------------------------
+GitHub repository looks to be complete and is fairly well organized.  I had to hunt around a little to find some of the Verilog (mainly SystemVerilog) code but once I figured out how you organized the repository it was OK.  All team members made contributions to the repository.
+
+Emulator – Did not review this code since it wasn’t part of your committed deliverables.  It was more along the lines of simulations that you would run on the hardware.  Please don’t think I underestimate the work that went into this – it was a great idea to do this, and as was mentioned in the report, it was unlikely you could have gotten the demo to work without it because the hardware was released close to the deadline.
+
+Hardware – Too much code to review so these comments are general.  Code was organized well with functionality broken into manageable blocks.  Most files had short headers but not overly descriptive.  Comments in code were mixed – some very good, some OK, and some pretty much uncommented.
+
+Software – Code base was organized well and the individual source code files were structured such that I could get the gist of the game play without studying the details.  Good use of functions to encapsulate functionality.  I’m not often satisfied with the amount of comments and this is true, here, but given the complexity of the code and the explanations provided in the design report, I could get the general idea.  I noted your header files – almost a dichotomy.  You tell others not to steal your work but yet you license it under GPL.   One advantage of having private repositories, though, is that nobody will be able to Google your project or search GitHub so there’s some protection there.
+      
+Extra Credit (up to 10 pts): 8
+--------------------------------------
+Met all of their committed goals (except VGA resolution) and several of their stretch goals – multiplayer, sound effects, and enhanced graphics w/ “generic” sprite generator. (+3)
+
+Congratulations!  You are a wall of fame winner.  Your project was well conceived and your implementation was innovative in your use of a “generic” sprite engine, a task scheduler, and an emulator so your project could proceed without waiting for hardware.  (+5)
+
