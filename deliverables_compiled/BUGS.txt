@@ -1,0 +1,5 @@
+KNOWN BUGS:
+
+sound doesn't work at all, don't know why
+cannot load software via USART, don't know why (using the MEMLOADER program and getting it inside the bitstream works)
+
