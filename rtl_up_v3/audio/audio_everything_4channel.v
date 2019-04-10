@@ -39,6 +39,14 @@ module audio_everything_4channel (
 			.pulsewidth(pulsewidth0)
 			);
 	
+	// audio_sawtooth_pulsewidth sawtooth_pulsewidth_1 (
+			// .clk(audclk),
+			// .resetn(resetn),
+			// .mute(mute[1]),
+			// .period(period1),
+			// .pulsewidth(pulsewidth1)
+			// );
+	
 	audio_triwave_pulsewidth triwave_pulsewidth_1 (
 			.clk(audclk),
 			.resetn(resetn),
@@ -47,7 +55,22 @@ module audio_everything_4channel (
 			.pulsewidth(pulsewidth1)
 			);
 	
-	audio_triwave_pulsewidth triwave_pulsewidth_2 (
+	// audio_triwave_pulsewidth triwave_pulsewidth_2 (
+			// .clk(audclk),
+			// .resetn(resetn),
+			// .mute(mute[2]),
+			// .period(period2),
+			// .pulsewidth(pulsewidth2)
+			// );
+	// audio_triwave_pulsewidth triwave_pulsewidth_3 (
+			// .clk(audclk),
+			// .resetn(resetn),
+			// .mute(mute[3]),
+			// .period(period3),
+			// .pulsewidth(pulsewidth3)
+			// );
+			
+	audio_sawtooth_pulsewidth sawtooth_pulsewidth_2 (
 			.clk(audclk),
 			.resetn(resetn),
 			.mute(mute[2]),
@@ -55,7 +78,7 @@ module audio_everything_4channel (
 			.pulsewidth(pulsewidth2)
 			);
 	
-	audio_triwave_pulsewidth triwave_pulsewidth_3 (
+	audio_sawtooth_pulsewidth sawtooth_pulsewidth_3 (
 			.clk(audclk),
 			.resetn(resetn),
 			.mute(mute[3]),
