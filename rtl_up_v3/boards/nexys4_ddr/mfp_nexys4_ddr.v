@@ -96,7 +96,7 @@ module mfp_nexys4_ddr(
                     .OUT_7SD_ANODE(AN),
                     .OUT_7SD_CATHODE({DP, CA, CB, CC, CD, CE, CF, CG}),
                     .IN_analog_result ( xadc_results ), // {resultB, resultA} concatenated into one signal
-                    .OUT_audio_pwm_and_enable({AUD_PWM, AUD_SD}), // [0]=AUD_PWM, [1]=AUD_SD
+                    .OUT_audio_pwm_and_enable({AUD_SD, AUD_PWM}), // [1]=AUD_SD, [0]=AUD_PWM, 
                     .IN_audio_clock(clk5),
                     // sprite ram access via sprite manager
                     .SPRITE_ADDR(sprite_addr),
