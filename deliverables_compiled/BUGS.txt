@@ -1,5 +1,10 @@
 KNOWN BUGS:
 
-sound doesn't work at all, don't know why
-cannot load software via USART, don't know why (using the MEMLOADER program and getting it inside the bitstream works)
-
+cannot load software via USART, don't know why (using the MEMLOADER program and getting it inside the bitstream with .txt files works)
+	(even the official bitstream submitted for the assignment can't load software via USART !!! how did this get missed???)
+	(need to backtrack thru git history until finding a version that didn't have this bug...)
+	(might be due to slowing down the core clock from 50mhz to 25mhz, but unlikely)
+	(probably related to the way sprite ram was added and is managed via "snooping"...?)
+	(I don't understand the graphics even a little bit so this will probably never be fixed)
+sprite system is buggy: designed to support 16 sprites on a line, but can only handle 12, 13-16 look "glitchy"
+	(I don't understand the graphics even a little bit so this will probably never be fixed)
