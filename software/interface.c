@@ -375,6 +375,11 @@ long read_butts() {
 	}
 #else
 	butts = MFP_BUTTONS; // this is actually really clever - expands into a read. maybe.
+	#ifndef USE_PADDLE
+	// if not using the paddle, then zero out these button signals
+	butts &= ~BUTTON_SHOOT_A;
+	butts &= ~BUTTON_SHOOT_B;
+	#endif
 #endif
 	return butts;
 }
