@@ -1,6 +1,6 @@
 import math
 # brian's script to make the COE files for brian's sound modules
-#
+# heavily inspired by Jamies work but improved and finished
 #
 # period and duration are stored in the same COE file, stapled together
 # duration is bottom (LSB)
@@ -17,6 +17,7 @@ import math
 
 ################################################################################################################################
 # user-changeable parameters
+# need to match the values in "audio_values.vh"
 
 OUT_FILENAME = "soundmem_v2.coe"
 
